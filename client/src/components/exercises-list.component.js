@@ -53,6 +53,7 @@ export default class ExercisesList extends Component {
         return (
             <div>
                 <h3>Logged Exercises</h3>
+                <div style={{overflow: "auto"}}>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
@@ -67,6 +68,7 @@ export default class ExercisesList extends Component {
                         {this.exercisesList()}
                     </tbody>
                 </table>
+                </div>
             </div>
         );
     }
