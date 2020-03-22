@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Navbar, Nav} from 'react-bootstrap';
 
-export default class Navbar extends Component {
+export default class Navigation extends Component {
     render() {
         return (
             
-           <Navbar bg="dark" expand="lg">
+           <Navbar bg="light" expand="lg">
   <Navbar.Brand href="/">ExerTracker</Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
