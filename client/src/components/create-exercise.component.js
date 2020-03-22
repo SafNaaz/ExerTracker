@@ -109,7 +109,7 @@ export default class CreateExercise extends Component {
                     </div>
                     <div className="form-group">
                         <label>Duration (in minutes): </label>
-                        <input type="text"
+                        <input type="number"
                             required
                             className="form-control"
                             value={this.state.duration}
