@@ -84,6 +84,8 @@ export default class CreateUser extends Component {
                         <label>Username: </label>
                         <input type="text"
                             required
+                            pattern=".{3,}"
+                            title="3 Characters Minimum"
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
