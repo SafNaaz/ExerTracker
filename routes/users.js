@@ -10,7 +10,6 @@ router.route('/').get(
 
 router.route('/add').post((req, res) => {
     const username = req.body.username;
-    User.findOne({name:username}).then(console.log('user already exists'));
     const newUser = new User({ username });
 	
 
