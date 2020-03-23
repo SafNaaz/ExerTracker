@@ -9,8 +9,11 @@ const Exercise = props => (
         <td data-label="Duration">{props.exercise.duration}</td>
         <td data-label="Date">{props.exercise.date.substring(0, 10)}</td>
         <td data-label="Actions">
-            <Link to={'/edit/' + props.exercise._id}>edit</Link>
-            <button href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</button>
+            <Link to={{
+                pathname: '/edit/' + props.exercise._id,
+                state: props.exercise
+            }}>edit</Link>
+            <button onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</button>
         </td>
     </tr>
 )
@@ -26,7 +29,7 @@ export default class ExercisesList extends Component {
     }
 
     componentDidMount() {
-        axios.get("/exercises/")
+        axios.get("http://localhost:5000/exercises/")
             .then(res => {
                 this.setState({ exercises: res.data })
             })
@@ -34,7 +37,7 @@ export default class ExercisesList extends Component {
     }
 
     deleteExercise(id) {
-        axios.delete('/exercises/' + id)
+        axios.delete('http://localhost:5000/exercises/' + id)
             .then(res => console.log(res.data));
 
         this.setState({

@@ -6,12 +6,12 @@ import axios from 'axios';
 export default class EditExercise extends Component {
     constructor(props) {
         super(props);
-
-        this.onChangeUsername = this.onChangeUsername.bind(this);
+        //this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.goBack = this.goBack.bind(this);
 
         this.state = {
             username: '',
@@ -22,23 +22,20 @@ export default class EditExercise extends Component {
     }
 
     componentDidMount() {
-        axios.get('/exercises/' + this.props.match.params.id)
-            .then(res => {
-                this.setState({
-                    username: res.data.username,
-                    description: res.data.description,
-                    duration: res.data.duration,
-                    date: new Date(res.data.date)
-                })
-            })
-            .catch(err => console.log(err))
+        this.setState({
+            username: this.props.location.state.username,
+            description: this.props.location.state.description,
+            duration: this.props.location.state.duration,
+            date: new Date(this.props.location.state.date)
+        })
+
     }
 
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value
-        })
-    }
+    // onChangeUsername(e) {
+    //     this.setState({
+    //         username: e.target.value
+    //     })
+    // }
 
     onChangeDescription(e) {
         this.setState({
@@ -58,6 +55,10 @@ export default class EditExercise extends Component {
         })
     }
 
+    goBack() {
+        this.props.history.goBack();
+    }
+
     onSubmit(e) {
         e.preventDefault();
 
@@ -70,7 +71,7 @@ export default class EditExercise extends Component {
 
         console.log(exercise);
 
-        axios.post('/exercises/update/' + this.props.match.params.id, exercise)
+        axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, exercise)
             .then(res => console.log(res.data));
 
         window.location = '/';
@@ -111,8 +112,9 @@ export default class EditExercise extends Component {
                             />
                         </div>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group submit-cancel-btn">
                         <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />
+                        <button type="button" value="Cancel" className="btn btn-primary" onClick={this.goBack}>Cancel</button>
                     </div>
                 </form>
             </div>

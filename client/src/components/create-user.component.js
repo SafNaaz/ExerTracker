@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Alert } from 'react-bootstrap';
 
 const User = props => (
     <li>{props.user.username}</li>
 )
 
-const Error = props => (
-    <span style={{ color: "red" }}>{props.error}</span>
-)
+const Information = props => {
+    if (props.info === 'duplicateUser') {
+        return <Alert variant="danger">User Already Exists.
+        </Alert>
+    } else if (props.info === 'userAdded') {
+        return <Alert variant="info">User Added.
+        </Alert>
+    } else {
+        return null;
+    }
+}
 
 export default class CreateUser extends Component {
     constructor(props) {
@@ -16,13 +25,22 @@ export default class CreateUser extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.getUsers = this.getUsers.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.goBack = this.goBack.bind(this);
+        this.resetClick = this.resetClick.bind(this);
 
         this.state = {
             username: '',
             users: [],
-            error: ''
-        };
+            info: ''
+        }
 
+    }
+
+    resetClick() {
+        this.setState({
+            username: '',
+            info: ''
+        })
     }
 
     componentDidMount() {
@@ -30,7 +48,7 @@ export default class CreateUser extends Component {
     }
 
     getUsers() {
-        axios.get('/users')
+        axios.get('http://localhost:5000/users')
             .then(res => {
                 this.setState({ users: res.data });
             })
@@ -50,7 +68,7 @@ export default class CreateUser extends Component {
 
         if (duplicateUser.length > 0) {
             this.setState({
-                error: 'User Already Exists.'
+                info: 'duplicateUser'
             })
         } else {
             const newUser = {
@@ -60,13 +78,17 @@ export default class CreateUser extends Component {
             this.setState({
                 username: '',
                 users: this.state.users.concat(newUser),
-                error: ''
+                info: 'userAdded'
             })
-            axios.post('/users/add', newUser)
+            axios.post('http://localhost:5000/users/add', newUser)
                 .then(res => console.log(res.data))
                 .catch(err => console.log(err))
         }
 
+    }
+
+    goBack() {
+        this.props.history.goBack();
     }
 
     getUsersList(e) {
@@ -85,15 +107,17 @@ export default class CreateUser extends Component {
                         <input type="text"
                             required
                             pattern=".{3,}"
-                            title="3 Characters Minimum"
+                            title="3 characters minimum"
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
                         />
-                        <Error error={this.state.error} />
+                        {this.state.error === '' ? null : <Information info={this.state.info} />}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group submit-cancel-btn">
                         <input type="submit" value="Create New User" className="btn btn-primary" />
+                        <button type="button" onClick={this.resetClick} className="btn btn-primary" >Reset</button>
+                        <button type="button" className="btn btn-primary" onClick={this.goBack}>Cancel</button>
                     </div>
                 </form>
                 <div>

@@ -12,6 +12,7 @@ export default class CreateExercise extends Component {
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.goBack = this.goBack.bind(this);
 
         this.state = {
             username: '',
@@ -22,8 +23,12 @@ export default class CreateExercise extends Component {
         }
     }
 
+    goBack() {
+        this.props.history.goBack();
+    }
+
     componentDidMount() {
-        axios.get("/users")
+        axios.get("http://localhost:5000/users")
             .then(res => {
                 if (res.data.length > 0) {
                     this.setState({
@@ -70,7 +75,7 @@ export default class CreateExercise extends Component {
 
         console.log(exercise);
 
-        axios.post('/exercises/add', exercise)
+        axios.post('http://localhost:5000/exercises/add', exercise)
             .then(res => console.log(res.data));
 
         window.location = '/';
@@ -125,8 +130,9 @@ export default class CreateExercise extends Component {
                             />
                         </div>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group submit-cancel-btn">
                         <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+                        <button type="button" className="btn btn-primary" onClick={this.goBack}>Cancel</button>
                     </div>
                 </form>
             </div>
