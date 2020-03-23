@@ -22,7 +22,7 @@ export default class EditExercise extends Component {
     }
 
     componentDidMount() {
-        axios.get('/exercises/' + this.props.match.params.id)
+        axios.get('http://localhost:5000/exercises/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
                     username: res.data.username,
@@ -70,7 +70,7 @@ export default class EditExercise extends Component {
 
         console.log(exercise);
 
-        axios.post('/exercises/update/'+this.props.match.params.id, exercise)
+        axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, exercise)
             .then(res => console.log(res.data));
 
         window.location = '/';
@@ -79,7 +79,7 @@ export default class EditExercise extends Component {
     render() {
         return (
             <div>
-                <h3>Edit Exercise Log</h3>
+                <h5>Edit Exercise Log</h5>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: {this.state.username}</label>

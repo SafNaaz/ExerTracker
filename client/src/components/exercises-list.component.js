@@ -4,12 +4,12 @@ import axios from 'axios';
 
 const Exercise = props => (
     <tr>
-        <td>{props.exercise.username}</td>
-        <td>{props.exercise.description}</td>
-        <td>{props.exercise.duration}</td>
-        <td>{props.exercise.date.substring(0.10)}</td>
-        <td>
-            <Link to={'/edit/' + props.exercise._id}>edit</Link>| 
+        <td data-label="Username">{props.exercise.username}</td>
+        <td data-label="Description">{props.exercise.description}</td>
+        <td data-label="Duration">{props.exercise.duration}</td>
+        <td data-label="Date">{props.exercise.date.substring(0, 10)}</td>
+        <td data-label="Actions">
+            <Link to={'/edit/' + props.exercise._id}>edit</Link>
             <button href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</button>
         </td>
     </tr>
@@ -26,7 +26,7 @@ export default class ExercisesList extends Component {
     }
 
     componentDidMount() {
-        axios.get("/exercises/")
+        axios.get("http://localhost:5000/exercises/")
             .then(res => {
                 this.setState({ exercises: res.data })
             })
@@ -34,7 +34,7 @@ export default class ExercisesList extends Component {
     }
 
     deleteExercise(id) {
-        axios.delete('/exercises/' + id)
+        axios.delete('http://localhost:5000/exercises/' + id)
             .then(res => console.log(res.data));
 
         this.setState({
@@ -52,22 +52,22 @@ export default class ExercisesList extends Component {
     render() {
         return (
             <div>
-                <h3>Logged Exercises</h3>
-                <div style={{overflow: "auto"}}>
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>Username</th>
-                            <th>Description</th>
-                            <th>Duration</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.exercisesList()}
-                    </tbody>
-                </table>
+                <h5>Logged Exercises</h5>
+                <div id="exercise-log-table">
+                    <table className="table">
+                        <thead className="thead-light">
+                            <tr>
+                                <th>Username</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.exercisesList()}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         );

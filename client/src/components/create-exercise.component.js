@@ -23,7 +23,7 @@ export default class CreateExercise extends Component {
     }
 
     componentDidMount() {
-        axios.get("/users")
+        axios.get("http://localhost:5000/users")
             .then(res => {
                 if (res.data.length > 0) {
                     this.setState({
@@ -70,7 +70,7 @@ export default class CreateExercise extends Component {
 
         console.log(exercise);
 
-        axios.post('/exercises/add', exercise)
+        axios.post('http://localhost:5000/exercises/add', exercise)
             .then(res => console.log(res.data));
 
         window.location = '/';
@@ -79,7 +79,7 @@ export default class CreateExercise extends Component {
     render() {
         return (
             <div>
-                <h3>Create New Exercise Log</h3>
+                <h5>Create New Exercise Log</h5>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>

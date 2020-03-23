@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 const User = props => (
-    <li key={props.user._id}>{props.user.username}</li>
+    <li>{props.user.username}</li>
+)
+
+const Error = props => (
+    <span style={{ color: "red" }}>{props.error}</span>
 )
 
 export default class CreateUser extends Component {
@@ -10,12 +14,13 @@ export default class CreateUser extends Component {
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
-		this.getUsers = this.getUsers.bind(this);
+        this.getUsers = this.getUsers.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             username: '',
-            users: []
+            users: [],
+            error: ''
         };
 
     }
@@ -23,14 +28,14 @@ export default class CreateUser extends Component {
     componentDidMount() {
         this.getUsers()
     }
-	
-	getUsers(){
-		axios.get('/users')
+
+    getUsers() {
+        axios.get('http://localhost:5000/users')
             .then(res => {
                 this.setState({ users: res.data });
             })
             .catch(err => console.log(err));
-	}
+    }
 
     onChangeUsername(e) {
         this.setState({
@@ -41,34 +46,39 @@ export default class CreateUser extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const newUser = {
-            username: this.state.username
+        let duplicateUser = this.state.users.filter(user => { return user.username === this.state.username })
+
+        if (duplicateUser.length > 0) {
+            this.setState({
+                error: 'User Already Exists.'
+            })
+        } else {
+            const newUser = {
+                username: this.state.username
+            }
+            console.log(newUser);
+            this.setState({
+                username: '',
+                users: this.state.users.concat(newUser),
+                error: ''
+            })
+            axios.post('http://localhost:5000/users/add', newUser)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err))
         }
-
-        console.log(newUser);
-
-        axios.post('/users/add', newUser)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
-
-        this.setState({
-            username: ''
-        })
-		
-		this.getUsers()
 
     }
 
     getUsersList(e) {
-        return this.state.users.map(user => {
-            return <User user={user} />
+        return this.state.users.map((user, index) => {
+            return <User user={user} key={index} />
         });
     }
 
     render() {
         return (
             <div>
-                <h3>Create New User</h3>
+                <h5>Create New User</h5>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>
@@ -78,13 +88,14 @@ export default class CreateUser extends Component {
                             value={this.state.username}
                             onChange={this.onChangeUsername}
                         />
+                        <Error error={this.state.error} />
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create New User" className="btn btn-primary" />
                     </div>
                 </form>
                 <div>
-                    <h4>Users : </h4>
+                    <h5>Users : </h5>
                     <ol>{this.getUsersList()}</ol>
                 </div>
             </div>
