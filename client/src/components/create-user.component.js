@@ -48,7 +48,7 @@ export default class CreateUser extends Component {
     }
 
     getUsers() {
-        axios.get('http://localhost:5000/users')
+        axios.get('/users')
             .then(res => {
                 this.setState({ users: res.data });
             })
@@ -80,7 +80,7 @@ export default class CreateUser extends Component {
                 users: this.state.users.concat(newUser),
                 info: 'userAdded'
             })
-            axios.post('http://localhost:5000/users/add', newUser)
+            axios.post('/users/add', newUser)
                 .then(res => console.log(res.data))
                 .catch(err => console.log(err))
         }
