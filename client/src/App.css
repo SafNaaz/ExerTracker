@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,94 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+body{
+	max-width:850px;
+	margin:auto;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+a {
+  color: black;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+#exercise-log-table {
+  overflow-x: auto;
+}
+
+table {
+  /*border: 1px solid #ccc;*/
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 0 1px solid #ddd;
+  padding: 0.35em;
+}
+
+table th,
+table td {
+  padding: 0.625em;
+  text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom:3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+	
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+	
+  }
+
+  table td::before {
+ 
+    float: left;
+    content: attr(data-label);
+    font-weight: bold;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+  
+  table td:first-child {
+    border-top: 0;
+  }
+  
 }

@@ -8,6 +8,8 @@ import EditExercise from "./components/edit-exercise.component";
 import CreateExercise from "./components/create-exercise.component";
 import CreateUser from "./components/create-user.component";
 
+require('./App.css');
+
 
 function App() {
   return (
