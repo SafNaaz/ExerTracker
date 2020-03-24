@@ -115,7 +115,7 @@ export default class CreateUser extends Component {
                         {this.state.error === '' ? null : <Information info={this.state.info} />}
                     </div>
                     <div className="form-group submit-cancel-btn">
-                        <input type="submit" value="Create New User" className="btn btn-primary" />
+                        <input type="submit" value="Create" className="btn btn-primary" />
                         <button type="button" onClick={this.resetClick} className="btn btn-primary" >Reset</button>
                         <button type="button" className="btn btn-primary" onClick={this.goBack}>Cancel</button>
                     </div>
