@@ -7,7 +7,7 @@ const Exercise = props => (
         <td data-label="Username">{props.exercise.username}</td>
         <td data-label="Description">{props.exercise.description}</td>
         <td data-label="Duration">{props.exercise.duration}</td>
-        <td data-label="Date">{props.exercise.date.toDateString()}</td>
+        <td data-label="Date">{props.exercise.date.substring(0,10)}</td>
         <td data-label="Actions">
             <Link to={{
                 pathname: '/edit/' + props.exercise._id,
