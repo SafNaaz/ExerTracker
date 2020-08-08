@@ -3,6 +3,7 @@
 # Dockerization
 
 server
+--------------
 
     Mongo running as a service
 
@@ -19,6 +20,7 @@ server
         docker run -d -p 8000:8000 --name server --network mern-network mern-server
 
 client with nginx
+--------------
 	 
     add nginx.conf and nginx related entries in docker file
 	 
