@@ -1,28 +1,28 @@
 # react
+
 MERN Stack App - Simple exercise tracker - dockerized and running on k8s
 
-server
--------------------
+    server
 
-# Mongo running as a service
+    Mongo running as a service
 
-docker run -d -p 27017-27019:27017-27019 --name mongodb-service mongo
+        docker run -d -p 27017-27019:27017-27019 --name mongodb-service mongo
 	
-docker build -t mern-server . 
+        docker build -t mern-server . 
 	 
-# created a network     
-docker network create mern-network
+    created a network     
+        
+        docker network create mern-network
 	 
-docker network connect mern-network mongodb-service
+        docker network connect mern-network mongodb-service
 	 
-docker run -d -p 8000:8000 --name server --network mern-network mern-server
-------------------------------------------------------------------------------------------------
+        docker run -d -p 8000:8000 --name server --network mern-network mern-server
 
 client with nginx
 	 
-add nginx.conf and nginx related entries in docker file
+    add nginx.conf and nginx related entries in docker file
 	 
-docker build -t mern-client .
+    docker build -t mern-client .
 	 
 -----------------------------------------------------------
 
@@ -43,8 +43,6 @@ push images to docker hub (can use local images as well -little tricky)
 	kubectl create -f cloudl-server-deployment.yml
 	
 	kubectl logs <pod_name>   - to see logs
-	
-	--------------------------------
 	
 client
 --------------------
