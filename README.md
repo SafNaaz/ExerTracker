@@ -18,5 +18,37 @@ docker network connect mern-network mongodb-service
 docker run -d -p 8000:8000 --name server --network mern-network mern-server
 ------------------------------------------------------------------------------------------------
 
+client with nginx
+	 
+add nginx.conf and nginx related entries in docker file
+	 
+docker build -t mern-client .
+	 
+-----------------------------------------------------------
+
+# k8s steps
+	 
+server
+--------------
+push images to docker hub (can use local images as well -little tricky)
+	 
+	docker tag exer-server safnas/mern-server:v1
+	docker push safnas/exer-server:v1
+	 
+	create yml files
+	 
+	kubectl create -f mongodb-pod.yml
+	kubectl create -f mongodb-service.yml
+	kubectl create -f cloudl-server-service.yml
+	kubectl create -f cloudl-server-deployment.yml
+	
+	kubectl logs <pod_name>   - to see logs
+	
+	--------------------------------
+	
 client
--------------------------
+--------------------
+	
+	docker tag mern-client safnas/exer-client:v1
+	
+	docker push safnas/exer-client:v1
