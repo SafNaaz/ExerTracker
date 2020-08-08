@@ -24,6 +24,10 @@ const usersRouter = require('./routes/users');
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 
+app.get('/', (req, res) => {
+    res.send('mern server up and running.');
+});
+
 app.listen(port, () => {
     console.log(`server is running on port: ${port}`);
 });

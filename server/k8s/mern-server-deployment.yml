@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mern-server-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mern-server
+    spec:
+      containers:
+        - name: mern-server
+          image: safnas/exer-server:v1
+          ports:
+            - containerPort: 8000
+              name: nodejs-port
+  selector:
+    matchLabels:
+      app: mern-server
