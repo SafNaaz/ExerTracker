@@ -1,6 +1,6 @@
-# react
+# MERN Stack App - Simple exercise tracker - dockerized and running on k8s
 
-MERN Stack App - Simple exercise tracker - dockerized and running on k8s
+# Dockerization
 
     server
 
