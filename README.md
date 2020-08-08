@@ -2,7 +2,7 @@
 
 # Dockerization
 
-    server
+server
 
     Mongo running as a service
 
