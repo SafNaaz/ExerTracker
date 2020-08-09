@@ -52,3 +52,16 @@ client
 	docker tag mern-client safnas/exer-client:v1
 	
 	docker push safnas/exer-client:v1
+
+	kubectl create -f mern-client-service.yml
+	kubectl create -f mern-client-deployment.yml
+	
+	minikube service mern-client-service --url
+	
+
+extra things can be done in cloud
+---------------------------------
+	 - CI CD
+	 - Health check - liveness, readyness
+	 - auto scaling
+	 - persistent storage for mongodb
