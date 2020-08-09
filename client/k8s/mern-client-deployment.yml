@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mern-client-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mern-client
+    spec:
+      containers:
+        - name: mern-client
+          image: safnas/exer-client:v1
+          ports:
+            - containerPort: 80
+              name: http-port
+  selector:
+    matchLabels:
+      app: mern-client
